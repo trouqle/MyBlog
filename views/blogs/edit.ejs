@@ -1,0 +1,39 @@
+<% layout('layout/boilerplate') %>
+
+    <div class="row">
+        <h1 class="text-center">Edit Blog</h1>
+        <div class="col-6 offset-3">
+            <form action="/blogs/<%=blog._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name=blog[title] required
+                        value="<%=blog.title %>">
+                    <div class="valid-feedback">Nice!</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="owner">Owner</label>
+                    <input class="form-control" type="text" id="owner" name=blog[location] required
+                        value="<%=blog.location %>">
+                    <div class="valid-feedback">Nice!</div>
+                </div>
+                <div class="mb-3">
+
+                    <label class="form-label" for="image">Image Url</label>
+                    <input class="form-control" type="text" id="image" name=blog[image] required
+                        value="<%= blog.image %> ">
+                    <div class="valid-feedback">Nice!</div>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description"
+                        name=blog[description]><%=blog.description %></textarea>
+                    <div class="valid-feedback">Nice!</div>
+                </div>
+                <div class=" mb-3">
+                    <button class="btn btn-success">Update Blog</button>
+                </div>
+
+            </form>
+            <a href="/blogs">Back to Blog</a>
+        </div>

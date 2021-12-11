@@ -1,0 +1,80 @@
+<% layout('layout/boilerplate') %>
+    <link rel="stylesheet" href="/stylesheets/stars.css">
+    <div class="row">
+        <div class="col-6">
+            <div class="card mb-3">
+                <img src="<%=blog.image %> " class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= blog.title %>
+                    </h5>
+                    <p class="card-text">
+                        <%= blog.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted">
+                        <%=blog.location%>
+                    </li>
+                    <li class="list-group-item">Submitted By
+                        <%=blog.author.username%>
+                    </li>
+
+                </ul>
+                <% if(currentUser && blog.author.equals(currentUser._id)){ %>
+                    <div class="card-body">
+                        <a class="card-link btn btn-primary" href="/blogs/<%=blog._id%>/edit ">Edit Blog</a>
+                        <form class="d-inline" action="/blogs/<%=blog._id%>?_method=DELETE" method="POST">
+                            <button class="card-link btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+                        <div class="card-footer text-muted">
+                            2 days ago
+                        </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <% if(currentUser){%>
+                <h2>Leave a Review</h2>
+                <form action="/blogs/<%=blog._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label" for="rating">Rating</label>
+                        <input class="form-range" type="range" name="review[rating]" id="rating" min="1" max="5">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="body">Review</label>
+                        <textarea class="form-control" name="review[body]" id="body" cols="30" rows="4"
+                            required></textarea>
+                        <div class="valid-feedback">
+                            Nice!
+                        </div>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
+                <% } %>
+                    <% for(let review of blog.reviews){ %>
+                        <div class="div card mb-3">
+                            <div class=" card-body">
+                                <h5 class="card-title">Rating: <%=review.rating %>
+                                </h5>
+                                <h3>Rated element name</h3>
+                                <p class="starability-result" data-rating="3">
+                                    Rated: 3 stars
+                                </p>
+                                <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username %>
+                                </h6>
+                                <p class="card-text">Review: <%=review.body %>
+                                </p>
+                                <% if(currentUser && review.author.equals(currentUser._id)){ %>
+                                    <form action="/blogs/<%=blog._id%>/reviews/<%=review._id %>?_method=DELETE"
+                                        method="POST">
+                                        <button class="btn btn-sm btn-danger ">Delete</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <% } %>
+        </div>
+    </div>
