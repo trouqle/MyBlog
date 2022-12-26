@@ -1,0 +1,16 @@
+.nav-link{
+    padding: 0.25rem 0;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    margin-left: 1rem;
+    border-bottom: 00.25rem solid transparent;
+    text-shadow: 0 0.05rem 0.1rem rgba(0,0,0,0.5);
+   
+}
+
+.nav-link:hover{
+    color: rgba(255,255,255,0.5);
+    border-bottom-color: rgba(255,255,255,0.5);
+    box-shadow: 0 0.5em 0.5em -0.4em ;
+   transform: translateY(-0.25em);
+}
