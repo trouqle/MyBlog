@@ -9,9 +9,9 @@ router.route('/')
     .get(catchAsync(blogs.index))
     .post(isLoggedIn, validateBlog, catchAsync(blogs.createBlog))
 
-router.get('/new', isLoggedIn, blogs.renderNewForm)
+//router.get('/new', isLoggedIn, blogs.renderNewForm)
 
-router.route('/id')
+router.route('/:id')
     .get(catchAsync(blogs.showBlog))
     .put(isLoggedIn, isAuthor, validateBlog, catchAsync(blogs.updateBlog))
     .delete(isLoggedIn, isAuthor, catchAsync(blogs.deleteBlog))
