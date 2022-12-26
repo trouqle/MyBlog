@@ -5,10 +5,10 @@ module.exports.index = async (req, res) => {
     res.render('blogs/index', { blogs });
 }
 
-module.exports.renderNewForm = (req, res) => {
+/*module.exports.renderNewForm = (req, res) => {
     res.render('blogs/new');
 }
-
+*/
 module.exports.createBlog = async (req, res, next) => {
     const blog = new Blog(req.body.blog);
     blog.author = req.user._id;
@@ -23,8 +23,7 @@ module.exports.showBlog = async (req, res) => {
         populate: {
             path: 'author'
         }
-    })
-        .populate('author');
+    }).populate('author');
     console.log(blog);
     if (!blog) {
         req.flash('error', 'Cannot find that blog')
@@ -35,7 +34,7 @@ module.exports.showBlog = async (req, res) => {
 
 module.exports.editBlog = async (req, res) => {
     const { id } = req.params;
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blog.findById(id);
     if (!blog) {
         req.flash('error', 'Cannot find that blog')
         return res.redirect('/blogs');
