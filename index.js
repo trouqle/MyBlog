@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express');
 const mongoose = require('mongoose');
 
+
 const path = require('path');
 const ejsMate = require('ejs-mate');
 const joi = require('joi');
@@ -22,12 +23,12 @@ const reviewsRoutes = require('./routes/reviews');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 
-//const db_url = process.env.DB_URL || 'mongodb://localhost:27017/my-blog';
+const db_url = process.env.DB_URL || 'mongodb://localhost:27017/my-blog';
 
 const MongoStore = require("connect-mongo")(session);
 
 //mongodb://localhost:27017/my-blog'
-mongoose.connect('mongodb://localhost:27017/my-blog', {
+mongoose.connect(db_url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -100,7 +101,9 @@ app.use(
 const secret = process.env.secret || 'thisshouldbeabettersecret';
 
 const store = new MongoStore({
-    url: "mongodb://localhost:27017/my-blog",
+    url: db_url,
+    //"mongodb://localhost:27017/my-blog",
+
     secret,
     touchAfter: 24 * 60 * 60
 
